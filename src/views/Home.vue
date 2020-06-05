@@ -59,7 +59,7 @@ export default {
       return this.article.length
     },
     nbwords: function () {
-      return this.article.split(' ').length
+      return (this.article.split(' ').length - 1)
     }
   },
   methods: {
