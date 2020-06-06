@@ -35,20 +35,9 @@ $input-shadow: none;
 @import "../../../node_modules/bulma/sass/grid/_all.sass";
 
 #nbcharacters {
-  display: inline-block;
-  background-color:green;
-  border-radius: 12px;
-  color:white;
-  padding:20px;
+  display: block;
   margin-bottom:30px;
-}
-#nbwords {
-  display: inline-block;
-  background-color:blue;
-  border-radius: 12px;
-  color:white;
-  padding:20px;
-  margin-bottom:30px;
+  text-align:right;
 }
 textarea {
   @extend .textarea;

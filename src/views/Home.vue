@@ -1,7 +1,10 @@
 <template>
   <div class="home container">
     <Preview msg=""></Preview>
-    <div id="nbcharacters">{{nbcharacters}} caractères/<span>{{maxcharacters}}</span></div> <div id="nbwords">{{nbwords}} mots/{{maxwords}}</div>
+    <div id="nbcharacters" style="position:absolute;top:-60px;right:-30px;">{{nbcharacters}} caractères/<span style="margin-right:11px">{{maxcharacters}}</span>
+      <v-progress-circular size="60" color="#C44" width="10" rotate="-90" :value="percentagechars"></v-progress-circular>
+    </div>
+
     <textarea-autosize
       placeholder="Le contenu de votre article"
       ref="myTextarea"
@@ -11,7 +14,7 @@
       @blur.native="onBlurTextarea"
     />
     <div style="margin-top: 20px;" class="columns">
-      <div class="column">
+      <div class="column grandeimagecol">
         <div class="helper"></div>
         <div class="drop display-inline align-center" @dragover.prevent @drop="onDrop">
           <div class="helper"></div>
@@ -28,7 +31,38 @@
           </div>
         </div>
       </div>
-      <div class="column">Colonne 2</div>
+      <div class="column">
+        <div class="helper"></div>
+        <div class="drop display-inline align-center" @dragover.prevent @drop="onDrop">
+          <div class="helper"></div>
+          <div class="helper"></div>
+          <label v-if="!image" class="btn display-inline">
+            IMAGE 2
+            <input type="file" name="image" @change="onChange">
+          </label>
+          <div class="hidden display-inline align-center" v-else v-bind:class="{ 'image': true }">
+            <img :src="image" alt="" class="img" />
+            <br>
+            <br>
+            <button class="btn" @click="removeFile">ENLEVER</button>
+          </div>
+        </div>
+        <div class="helper"></div>
+        <div class="drop display-inline align-center" @dragover.prevent @drop="onDrop">
+          <div class="helper"></div>
+          <div class="helper"></div>
+          <label v-if="!image" class="btn display-inline">
+            IMAGE 3
+            <input type="file" name="image" @change="onChange">
+          </label>
+          <div class="hidden display-inline align-center" v-else v-bind:class="{ 'image': true }">
+            <img :src="image" alt="" class="img" />
+            <br>
+            <br>
+            <button class="btn" @click="removeFile">ENLEVER</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -57,6 +91,9 @@ export default {
   computed: {
     nbcharacters: function () {
       return this.article.length
+    },
+    percentagechars: function () {
+      return Math.round(this.article.length / this.maxcharacters * 100)
     },
     nbwords: function () {
       return (this.article.split(' ').length - 1)
@@ -151,10 +188,13 @@ export default {
     background-color: #f2f2f2;
     background-color: #f6f6f6;
     border-radius: 2px;
-    height: 100%;
-    min-height: 300px;
+    min-height: 150px;
     max-height: 400px;
     max-width: 600px;
     width: 100%;
+  }
+  .grandeimagecol .drop {
+    height: 100%;
+    min-height: 300px;
   }
 </style>
